@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {OAuth2Service} from './service/oauth.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'MyAngularMaterial';
+
+  constructor(public oauth2: OAuth2Service) {
+  }
 }

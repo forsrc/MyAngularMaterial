@@ -5,20 +5,20 @@ import {FormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
 
-import {LoginRoutingModule} from './login-routing.module';
-import {LoginComponent} from './login.component';
+import {HomeRoutingModule} from './home-routing.module';
+import {HomeComponent} from './home.component';
 
 @NgModule({
   imports: [
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule,
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatButtonModule,
-    LoginRoutingModule
+    HomeRoutingModule
   ],
-  declarations: [LoginComponent]
+  declarations: [HomeComponent]
 })
-export class LoginModule {
+export class HomeModule {
 }

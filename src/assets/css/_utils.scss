@@ -1,4 +1,5 @@
 @import 'variables';
+
 .mt5 {
   margin-top: 5px;
 }
@@ -139,12 +140,15 @@
 .text-center {
   text-align: center;
 }
+
 .text-left {
   text-align: left;
 }
+
 .text-right {
   text-align: right;
 }
+
 .bg-white {
   background: $white;
 }
