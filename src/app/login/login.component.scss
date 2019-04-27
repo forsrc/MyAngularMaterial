@@ -1,6 +1,7 @@
 @import '~src/assets/css/variables';
 
 .login-page {
+  margin-top: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,10 +18,10 @@
       font-size: 32px;
     }
     .login-form {
-      margin-top: 20%;
+
       padding: 40px;
       background: $white;
-      //max-width: 500px;
+      max-width: 500px;
       box-shadow: 0 0 20px #ddd;
       input:-webkit-autofill {
         box-shadow: 0 0 0 30px $white inset;
@@ -30,7 +31,7 @@
   }
   &:after {
     content: '';
-    //background: $white;
+    background: $white;
     position: absolute;
     top: 0;
     left: 0;
@@ -39,11 +40,12 @@
   }
   &:before {
     content: '';
-    //background: $primary-color;
+    background: $primary-color;
     position: absolute;
     top: 50%;
     left: 0;
     bottom: 0;
     right: 0;
+    margin-bottom: 30px;
   }
 }
