@@ -21,6 +21,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
 import {OAuth2Service} from './service/oauth.service';
+import {NavBarModule} from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,8 @@ import {OAuth2Service} from './service/oauth.service';
     BrowserAnimationsModule,
     HttpClientModule,
     FlexLayoutModule,
+
+    NavBarModule,
   ],
   providers: [OAuth2Service],
   bootstrap: [AppComponent]

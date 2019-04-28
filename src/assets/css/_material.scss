@@ -12,3 +12,9 @@ $custom-typography: mat-typography-config(
   $body-1: mat-typography-level(16px, 24px, 500)
 );
 @include angular-material-typography($custom-typography);
+
+
+.mat-list-avatar {
+  height: calculateRem(55px) !important;
+  width: calculateRem(55px) !important;
+}
