@@ -1,11 +1,10 @@
 @import '~src/assets/css/variables';
 
 .login-page {
-  //margin-top: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  //height: 90%;
   position: relative;
   .content {
     z-index: 1;
@@ -18,7 +17,7 @@
       font-size: 32px;
     }
     .login-form {
-
+      margin-top: 20%;
       padding: 40px;
       background: $white;
       max-width: 500px;
@@ -29,23 +28,23 @@
       }
     }
   }
-  &:after {
-    content: '';
-    background: $white;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 50%;
-    right: 0;
-  }
-  &:before {
-    content: '';
-    background: $primary-color;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    //margin-bottom: 30px;
-  }
+  //&:after {
+  //  content: '';
+  //  background: $white;
+  //  position: absolute;
+  //  top: 0;
+  //  left: 0;
+  //  bottom: 50%;
+  //  right: 0;
+  //}
+  //&:before {
+  //  content: '';
+  //  background: $primary-color;
+  //  position: absolute;
+  //  top: 50%;
+  //  left: 0;
+  //  bottom: 0;
+  //  right: 0;
+  //}
 }
+

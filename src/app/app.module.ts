@@ -22,6 +22,7 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 
 import {OAuth2Service} from './service/oauth.service';
 import {NavBarModule} from './navbar/navbar.component';
+import {FooterModule} from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {NavBarModule} from './navbar/navbar.component';
     FlexLayoutModule,
 
     NavBarModule,
+    FooterModule,
   ],
   providers: [OAuth2Service],
   bootstrap: [AppComponent]
