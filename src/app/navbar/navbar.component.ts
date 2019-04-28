@@ -10,7 +10,6 @@ import {RouterModule} from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
-  isNextVersion = location.hostname.startsWith('next.material.angular.io');
 
 
 }
