@@ -1,5 +1,18 @@
 <!-- TODO: figure out if the <nav> should go inside of a <header> element. -->
 <nav class="my-navbar-header">
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>input</mat-icon>
+      <a mat-button href="/login">Login</a>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>undo</mat-icon>
+      <a mat-button href="/logout">Logout</a>
+    </button>
+  </mat-menu>
   <a mat-button routerLink="/" aria-label="Angular Material">
     <img class="my-angular-logo avatar"
          src="../../assets/images/logo.jpg"
