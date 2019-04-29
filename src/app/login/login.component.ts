@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private email = 'forsrc@gmail.com';
+  private password = 'forsrc';
   constructor(private router: Router) {
   }
 

@@ -2,15 +2,15 @@
   <div class="content px20">
     <form class="login-form" #myForm="ngForm" (ngSubmit)="onLogin()">
       <div class="text-center">
-        <h2 class="app-name">Material Admin</h2>
+        <h2 class="app-name">Login</h2>
       </div>
       <div fxLayout="row">
         <div fxFlexFill>
           <mat-form-field class="w-100">
-            <input matInput placeholder="Email">
+            <input matInput placeholder="Email" value="{{email}}">
           </mat-form-field>
           <mat-form-field class="w-100">
-            <input matInput type="password" placeholder="Password">
+            <input matInput type="password" placeholder="Password" value="{{password}}">
           </mat-form-field>
         </div>
       </div>

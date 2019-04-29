@@ -1,5 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 import {
   MatButtonModule,
@@ -39,6 +41,7 @@ import {FooterModule} from './footer/footer.component';
     MatDialogModule,
     MatInputModule,
     MatSelectModule,
+    MatProgressBarModule,
 
     BrowserModule,
     AppRoutingModule,
