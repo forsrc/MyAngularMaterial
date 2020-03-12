@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
 
-import {LoginRoutingModule} from './login-routing.module';
+import {LoginRoutingModule} from './login.routing';
 import {LoginComponent} from './login.component';
 
 @NgModule({
