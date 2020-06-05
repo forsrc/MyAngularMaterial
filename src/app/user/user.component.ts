@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+
 import { User } from '../shared/user';
 import { UserService } from '../service/user.service';
 
@@ -19,6 +21,9 @@ export class UserComponent implements OnInit {
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
+  @ViewChild(MatSort)
+  sort: MatSort;
+
   constructor(private router: Router, private userService: UserService) {
   }
 
@@ -32,9 +37,9 @@ export class UserComponent implements OnInit {
     this.userService.list().subscribe(data => {
       this.users = data;
       this.dataSource = new MatTableDataSource<User>(this.users);
-      this.dataSource.paginator = this.paginator;
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }, 0);
     })
 

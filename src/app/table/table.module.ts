@@ -7,7 +7,8 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatInputModule,
-  MatTableModule
+  MatTableModule,
+  MatSortModule
 } from '@angular/material';
 
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -27,7 +28,8 @@ import {TableComponent} from './table.component';
     FlexLayoutModule,
     MatTableModule,
     MatPaginatorModule,
-    TableRoutingModule
+    TableRoutingModule,
+    MatSortModule
   ],
   declarations: [TableComponent]
 })

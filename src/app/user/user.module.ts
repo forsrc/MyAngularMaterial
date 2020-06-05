@@ -7,11 +7,10 @@ import {
   MatButtonModule,
   MatCheckboxModule,
   MatInputModule,
-  MatTableModule
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule
 } from '@angular/material';
-
-import {MatPaginatorModule} from '@angular/material/paginator';
-
 
 
 import {UserRoutingModule} from './user-routing.module';
@@ -29,6 +28,7 @@ import { UserService } from '../service/user.service';
     FlexLayoutModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSortModule,
     UserRoutingModule
   ],
   declarations: [UserComponent],
