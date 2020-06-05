@@ -9,7 +9,7 @@ import {
   MatInputModule
 } from '@angular/material';
 
-import { LoginRoutingModule } from './login-dialog-routing.module';
+import { LoginRoutingModule } from './login-dialog.routing';
 import { LoginDialogComponent } from './login-dialog.component';
 
 @NgModule({

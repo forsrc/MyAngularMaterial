@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatButtonModule, MatCheckboxModule, MatInputModule} from '@angular/material';
 
-import {HomeRoutingModule} from './home-routing.module';
+import {HomeRoutingModule} from './home.routing';
 import {HomeComponent} from './home.component';
 
 @NgModule({
