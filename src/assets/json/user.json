@@ -1,0 +1,18 @@
+[
+	{
+		"index": 1,
+		"username" : "forsrc@gmail.com",
+		"role" : ["ROLE_ADMIN", "ROLE_USER"]
+	},
+	{
+		"index": 2,
+		"username" : "user",
+		"role" : ["ROLE_DEV", "ROLE_USER"]
+	}
+	,
+	{
+		"index": 3,
+		"username" : "test",
+		"role" : ["ROLE_TEST", "ROLE_USER"]
+	}
+]

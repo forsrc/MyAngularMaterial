@@ -22,9 +22,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {FlexLayoutModule} from '@angular/flex-layout';
 
+
 import {OAuth2Service} from './service/oauth.service';
 import {NavBarModule} from './navbar/navbar.module';
 import {FooterModule} from './footer/footer.module';
+
 
 @NgModule({
   declarations: [

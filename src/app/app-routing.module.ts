@@ -16,6 +16,21 @@ const routes: Routes = [
     path: 'login',
     // component: LoginComponent,
     loadChildren: './login/login.module#LoginModule'
+  },
+  {
+    path: 'demo',
+    // component: DemoComponent,
+    loadChildren: './demo/demo.module#DemoModule'
+  },
+  {
+    path: 'user',
+    // component: UserComponent,
+    loadChildren: './user/user.module#UserModule'
+  },
+  {
+    path: 'table',
+    // component: TableComponent,
+    loadChildren: './table/table.module#TableModule'
   }
 ];
 
