@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import {
+  MatTableDataSource,
+  MatPaginator,
+  MatSort,
+  MatDialog,
+  MatDialogConfig
+} from '@angular/material';
 
 import { User } from '../shared/user';
 import { UserService } from '../service/user.service';
+import { DialogConfirmedComponent } from '../dialog-confirmed/dialog-confirmed.component';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +20,7 @@ import { UserService } from '../service/user.service';
 export class UserComponent implements OnInit {
 
   users: any = [];
-  displayedColumns: string[] = ['index', 'username', 'role'];
+  displayedColumns: string[] = ['index', 'username', 'role', 'action'];
   dataSource: MatTableDataSource<User>;
 
   @ViewChild(MatPaginator)
@@ -24,7 +29,7 @@ export class UserComponent implements OnInit {
   @ViewChild(MatSort)
   sort: MatSort;
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router, private userService: UserService, public dialog: MatDialog) {
   }
 
   applyFilter(event: Event) {
@@ -48,5 +53,33 @@ export class UserComponent implements OnInit {
   onLogin() {
     //localStorage.setItem('isLoggedin', 'true');
     this.router.navigate(['/user']);
+  }
+
+  delete(user: User): void {
+    // Create configuration for the dialog
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '200px';
+    dialogConfig.width = '400px';
+    dialogConfig.data = {
+      title: "Delete",
+      key: user.username,
+      message: 'Are you sure?'
+    };
+
+    const dialogRef = this.dialog.open(DialogConfirmedComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log("dialogRef.afterClosed()", result)
+      if (result) {
+        this.dataSource.data = this.dataSource.data.filter(e => e.username !== user.username);
+        //this.userServicr.delete(user.username).subscribe();
+      }
+    });
+  }
+
+  edit(user: User): void {
+
   }
 }

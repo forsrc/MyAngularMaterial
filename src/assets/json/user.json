@@ -2,17 +2,20 @@
 	{
 		"index": 1,
 		"username" : "forsrc@gmail.com",
-		"role" : ["ROLE_ADMIN", "ROLE_USER"]
+		"role" : ["ROLE_USER", "ROLE_ADMIN"],
+		"action" : true
 	},
 	{
 		"index": 2,
 		"username" : "user",
-		"role" : ["ROLE_DEV", "ROLE_USER"]
+		"role" : ["ROLE_USER", "ROLE_DEV"],
+		"action" : true
 	}
 	,
 	{
 		"index": 3,
 		"username" : "test",
-		"role" : ["ROLE_TEST", "ROLE_USER"]
+		"role" : ["ROLE_USER", "ROLE_TEST"],
+		"action" : true
 	}
 ]
