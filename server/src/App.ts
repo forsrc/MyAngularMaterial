@@ -3,25 +3,26 @@ import Router from './router'
 import swaggerUi from 'swagger-ui-express'
 import * as swaggerDocument from './swagger.json'
 import * as bodyParser from 'body-parser'
+import https from 'https';
 
 class App {
-  private httpServer: any
+  private app: any
 
   constructor() {
-    this.httpServer = express()
+    this.app = express()
 
-    this.httpServer.use(bodyParser.urlencoded({ extended: true }));
-    this.httpServer.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(bodyParser.json());
 
-    new Router(this.httpServer);
+    new Router(this.app);
 
-    this.httpServer.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+    this.app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   }
 
-  public Start = (port: number) => {
+  public Start = (options: any, port: number) => {
     return new Promise((resolve, reject) => {
 
-      this.httpServer.listen(
+      https.createServer(options, this.app).listen(
         port,
         () => {
           resolve(port)
