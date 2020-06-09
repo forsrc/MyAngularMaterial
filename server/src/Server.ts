@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 
 import App from './App';
+import InitDb from './InitDb';
+import Test from './test';
 
 const port = parseInt(process.env.PORT || '3000');
 
@@ -10,6 +12,12 @@ const options = {
   cert: fs.readFileSync(path.resolve('./ssl/certificate.pem'))
 };
 
+try {
+  new InitDb().init();
+} catch (error) {
+  console.error(error);
+}
+
 
 const Server = new App().Start(options, port)
   .then(port => console.log(`Server running on port ${port}`))
@@ -17,5 +25,8 @@ const Server = new App().Start(options, port)
     console.log(error)
     process.exit(1);
   });
+
+
+new Test().test(new Test());
 
 export default Server;

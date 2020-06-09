@@ -1,9 +1,11 @@
 import * as express from 'express';
 import cors from 'cors'
 import UserController from './controller/UserController';
+import UseRoleController from './controller/UserRoleController';
 class Router {
 
     userController = new UserController();
+    userRoleController = new UseRoleController();
 
     constructor(server: express.Express) {
         const router = express.Router()
@@ -21,6 +23,14 @@ class Router {
             .get('/user/:username', cors(), this.userController.get)
             .put('/user/:username', cors(), this.userController.update)
             .delete('/user/:username', cors(), this.userController.delete)
+            ;
+
+        router
+            .get('/role', cors(), this.userRoleController.list)
+            .post('/role', cors(), this.userRoleController.save)
+            .get('/role/:username', cors(), this.userRoleController.get)
+            .put('/role/:username', cors(), this.userRoleController.update)
+            .delete('/role/:username', cors(), this.userRoleController.delete)
             ;
 
         router.options('*', cors());

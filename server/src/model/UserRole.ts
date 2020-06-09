@@ -1,8 +1,6 @@
 type User = {
     username: String;
-    passwd: String;
-    enable: number;
-    version: number;
+    role: String;
     create: Date;
     update: Date;
 }
