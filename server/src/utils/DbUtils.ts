@@ -118,25 +118,25 @@ class DbUtils {
         let resolve: Promise<any> = new Promise<any>((resolve, reject) => {
             let length = Object.keys(model).length;
             let params: any = new Array(length);
-            let names: string = '';
-            let values: string = '';
+            let namesSql: string = '';
+            let valuesSql: string = '';
 
             let index: number = 0;
 
             for (let key in model) {
-                names += `${key}, `;
-                values += " ?, "
+                namesSql += `${key}, `;
+                valuesSql += " ?, "
                 params[index++] = model[key];
             }
-            names = names.substr(0, names.length - 2);
-            values = values.substr(0, values.length - 2);
+            namesSql = namesSql.substr(0, namesSql.length - 2);
+            valuesSql = valuesSql.substr(0, valuesSql.length - 2);
 
 
-            let sql: string = `INSERT INTO ${table} (${names}) VALUES (?, ?, ?)`;
+            let sql: string = `INSERT INTO ${table} (${namesSql}) VALUES (${valuesSql})`;
 
             this.db.all(sql, params, (err, rows) => {
                 if (err) {
-                    console.log('[ERROR] sql ' + sql);
+                    console.log('[ERROR] sql ', sql, err);
                     reject(err)
                     return;
                 }
@@ -177,7 +177,7 @@ class DbUtils {
 
             this.db.all(sql, params, (err, rows) => {
                 if (err) {
-                    console.log('[ERROR] sql ' + sql);
+                    console.log('[ERROR] sql ', sql, err);
                     reject(err)
                     return;
                 }

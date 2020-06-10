@@ -1,7 +1,9 @@
 import * as express from 'express';
+import * as bodyParser from 'body-parser'
 import cors from 'cors'
 import UserController from './controller/UserController';
 import UseRoleController from './controller/UserRoleController';
+
 class Router {
 
     userController = new UserController();
@@ -21,7 +23,7 @@ class Router {
             .get('/user', cors(), this.userController.list)
             .post('/user', cors(), this.userController.save)
             .get('/user/:username', cors(), this.userController.get)
-            .put('/user/:username', cors(), this.userController.update)
+            .put('/user', cors(), this.userController.update)
             .delete('/user/:username', cors(), this.userController.delete)
             ;
 
@@ -35,7 +37,7 @@ class Router {
 
         router.options('*', cors());
 
-        app.use('/', router)
+        app.use('/', router);
     }
 }
 

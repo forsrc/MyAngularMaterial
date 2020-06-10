@@ -9,15 +9,22 @@ class App {
   private app: any
 
   constructor() {
-    this.app = express()
-
+    this.app = express();
 
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
+    this.app.use(bodyParser.raw());
+
+
 
     new Router(this.app);
 
     this.app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+    this.app.post('/test/post', bodyParser.urlencoded({ extended: true }), (req, res) => {
+      res.status(200).json({ body: req.body });
+    });
+
   }
 
   public Start = (options: any, port: number) => {

@@ -12,11 +12,6 @@ const options = {
   cert: fs.readFileSync(path.resolve('./ssl/certificate.pem'))
 };
 
-try {
-  new InitDb().init();
-} catch (error) {
-  console.error(error);
-}
 
 
 const Server = new App().Start(options, port)
@@ -25,6 +20,13 @@ const Server = new App().Start(options, port)
     console.log(error)
     process.exit(1);
   });
+
+try {
+  new InitDb().init();
+} catch (error) {
+  console.error(error);
+}
+
 
 
 new Test().test(new Test());

@@ -3,7 +3,6 @@ import BaseController from './BaseController';
 import UserService from '../service/UserService';
 import User from '../model/User'
 import Init from '../Init'
-import { v4 as uuid } from 'uuid';
 
 
 
@@ -31,7 +30,11 @@ class UserController implements BaseController {
 
 
     save(req: express.Request, res: express.Response): void {
-
+        console.log("--->", req.body)
+        if (!req.body) {
+            res.status(400).json({ error: "req.body is empty" });
+            return;
+        }
         let user: User = {} as User;
         Object.assign(user, req.body)
         console.log("---->", user)
@@ -63,15 +66,19 @@ class UserController implements BaseController {
 
 
     update(req: express.Request, res: express.Response) {
-        let username: string = req.params.username;
+        if (!req.body) {
+            res.status(400).json({ error: "req.body is empty" });
+            return;
+        }
+
         let user: User = {} as User;
         Object.assign(user, req.body)
 
-        this.userServic.update({ username: username }, user).then((status) => {
+        this.userServic.update({ username: user.username }, user).then((status) => {
             if (status) {
                 res.status(200).json({ user: user, status: status });
             } else {
-                res.status(404).json({ error: `no such user '${username}'` });
+                res.status(404).json({ error: `no such user '${user.username}'` });
             }
 
         }).catch((err) => {

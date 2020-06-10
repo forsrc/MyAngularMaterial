@@ -1,7 +1,7 @@
 type User = {
     username: String;
-    passwd: String;
-    enable: number;
+    password: String;
+    enabled: number;
     version: number;
     create: Date;
     update: Date;
