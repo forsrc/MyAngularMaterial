@@ -11,6 +11,7 @@ class App {
   constructor() {
     this.app = express()
 
+
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json());
 

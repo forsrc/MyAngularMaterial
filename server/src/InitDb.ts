@@ -8,9 +8,9 @@ class InitDb {
 
     }
 
-    init(): void {
+    async init() {
         console.log('init db ...', config.db);
-        DbUtils.getInstance().setDb(config.db);
+        await DbUtils.getInstance().setDb(config.db);
 
         let sql: string = `
 CREATE TABLE IF NOT EXISTS user
@@ -25,36 +25,68 @@ CREATE TABLE IF NOT EXISTS user
 `;
 
         console.log(sql);
-        DbUtils.getInstance().getDb().run(sql);
+        await DbUtils.getInstance().run(sql, []).then((one) => {
+            //console.log("user -->", one);
+        }).catch((err) => {
+            console.error(err);
+        });
+
+
+        sql = `
+DELETE FROM user
+`;
+
+        await DbUtils.getInstance().run(
+            sql,
+            []).then((one) => {
+                //console.log("user -->", one);
+            }).catch((err) => {
+                console.error(err);
+            });
 
         sql = `
 INSERT INTO user (username, password, enabled) VALUES (?, ?, ?)
 `;
-        try {
-            DbUtils.getInstance().getDb().run(
-                sql,
-                ["forsrc", "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e", 1]
-                , (error) => {
-                    console.error(error);
-                });
-        } catch (error) {
-            console.error("[ERROR]", sql, error);
-        }
 
+        await DbUtils.getInstance().run(
+            sql,
+            ["forsrc", "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e", 1]
+        ).then((one) => {
+            //console.log("user -->", one);
+        }).catch((err) => {
+            console.error(err);
+        });
+
+        await DbUtils.getInstance().run(
+            sql,
+            ["user", "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e", 1]
+        ).then((one) => {
+            //console.log("user -->", one);
+        }).catch((err) => {
+            console.error(err);
+        });
         sql = "SELECT * from user;";
-        DbUtils.getInstance().getDb()
-            .all(sql, (err, rows) => {
-                if (err) {
-                    console.error(err);
-                }
-                if (!rows) {
-                    return;
-                }
-                rows.forEach(row => {
-                    console.log(sql, " -> ", row);
-                });
-            });
+        await DbUtils.getInstance().all(sql, []).then((rows) => {
+            console.log("rows -->", rows);
+        }).catch((err) => {
+            console.error(err);
+        });
 
+        await DbUtils.getInstance().get('user', { username: "forsrc", enabled: 1 }).then((one) => {
+            console.log("user -->", one);
+        }).catch((err) => {
+            console.error(err);
+        });
+        await DbUtils.getInstance().get('user', {}).then((one) => {
+            console.log("user -->", one);
+        }).catch((err) => {
+            console.error(err);
+        });
+
+
+        sql = `SELECT * from user`;
+        let list = await DbUtils.getInstance().run(sql, []);
+        console.error("list", "-->", list);
     }
 }
 

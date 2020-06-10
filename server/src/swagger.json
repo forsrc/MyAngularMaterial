@@ -203,12 +203,41 @@
                 "username": {
                     "type": "string"
                 },
+                "passwd": {
+                    "type": "string"
+                },
+                "enable": {
+                    "type": "number"
+                }
+                ,
+                "version": {
+                    "type": "number"
+                }
+            }
+        },
+        "Users": {
+            "type": "object",
+            "properties": {
+                "users": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/User"
+                    }
+                }
+            }
+        },
+        "Role": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
                 "role": {
                     "type": "string"
                 }
             }
         },
-        "Users": {
+        "Roles": {
             "type": "object",
             "properties": {
                 "users": {

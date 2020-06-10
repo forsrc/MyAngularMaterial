@@ -1,29 +1,21 @@
 import BaseService from './BaseService';
 import User from '../model/User';
+import BaseServiceImpl from './BaseServiceImpl';
+import UserDao from '../dao/UserDao';
 
-class UserService implements BaseService<String, User> {
+class UserService extends BaseServiceImpl<any, User> implements BaseService<any, User> {
 
-    list(): Array<User> {
-        return [];
+    private userDao: UserDao;
+
+    constructor(userDao: UserDao) {
+        super(userDao);
+        this.baseDao = userDao;
     }
 
-    save(User: User): User {
-        return {} as User;
+    public getTableName(): string {
+        return 'user';
     }
 
-    get(String: String): User {
-        return {} as User;
-    }
-
-    update(String: String, t: User): User {
-        return {} as User;
-    }
-
-    delete(String: String): void {
-
-    }
 }
 
-
-
-export default BaseService;
+export default UserService;

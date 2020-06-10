@@ -7,7 +7,7 @@ class Router {
     userController = new UserController();
     userRoleController = new UseRoleController();
 
-    constructor(server: express.Express) {
+    constructor(app: express.Express) {
         const router = express.Router()
 
         router.get('/', (req: express.Request, res: express.Response) => {
@@ -35,7 +35,7 @@ class Router {
 
         router.options('*', cors());
 
-        server.use('/', router)
+        app.use('/', router)
     }
 }
 

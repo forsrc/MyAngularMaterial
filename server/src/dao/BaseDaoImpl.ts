@@ -4,13 +4,14 @@ const sqlite3 = sqlite.verbose();
 import config from '../Config';
 import BaseDao from './BaseDao';
 import DbUtils from '../utils/DbUtils';
+import { async } from 'q';
 
 
 abstract class BaseDaoImpl<PK, MODEL> implements BaseDao<PK, MODEL> {
 
 
     public db: sqlite.Database = new sqlite3.Database(config.db, () => { });
-    private model: MODEL = {} as MODEL;
+
     constructor() {
         this.list = this.list.bind(this);
         this.save = this.save.bind(this);
@@ -19,43 +20,30 @@ abstract class BaseDaoImpl<PK, MODEL> implements BaseDao<PK, MODEL> {
         this.delete = this.delete.bind(this);
     }
 
-    public getModelName(): string {
-        return this.model.constructor.name;
+    public abstract getTableName(): string;
+
+    async list(): Promise<Array<MODEL>> {
+        let sql: string = `SELECT * from ${this.getTableName()}`;
+
+        return await DbUtils.getInstance().all(sql, []);
     }
 
-    list(): Array<MODEL> {
-        let sql: string = `SELECT * from ${this.getModelName()}`;
-        DbUtils.getInstance().getDb()
-            .all(sql, (err, rows) => {
-                if (err) {
-                    console.error(err);
-                }
-                if (!rows) {
-                    return;
-                }
-                rows.forEach(row => {
-                    console.log(sql, "->", row);
-                });
-            });
-        return [];
+    async save(model: MODEL): Promise<PK> {
+        let sql: string = `SELECT * from ${this.getTableName()}`;
+
+        return await DbUtils.getInstance().insert(this.getTableName(), model);
     }
 
-    save(pk: PK, model: MODEL): MODEL {
-        let sql: string = `SELECT * from ${this.getModelName()}`;
-        DbUtils.getInstance().getDb()
-        return {} as MODEL;
+    async get(pk: PK): Promise<MODEL> {
+        return await DbUtils.getInstance().get(this.getTableName(), pk);
     }
 
-    get(pk: PK): MODEL {
-        return {} as MODEL;
+    async update(pk: PK, model: MODEL): Promise<MODEL> {
+        return await DbUtils.getInstance().update(this.getTableName(), model, pk);
     }
 
-    update(pk: PK, model: MODEL): MODEL {
-        return {} as MODEL;
-    }
-
-    delete(pk: PK): void {
-
+    async delete(pk: PK): Promise<void> {
+        return await DbUtils.getInstance().delete(this.getTableName(), pk);
     }
 }
 

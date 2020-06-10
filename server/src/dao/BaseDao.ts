@@ -1,16 +1,16 @@
 interface BaseDao<PK, MODEL> {
 
-    getModelName(): string;
+    getTableName(): string;
 
-    list(): Array<MODEL>;
+    list(): Promise<Array<MODEL>>;
 
-    save(pk: PK, model: MODEL): MODEL;
+    save(model: MODEL): Promise<PK>;
 
-    get(pk: PK): MODEL;
+    get(pk: PK): Promise<MODEL>;
 
-    update(pk: PK, model: MODEL): MODEL;
+    update(pk: PK, model: MODEL): Promise<MODEL>;
 
-    delete(pk: PK): void;
+    delete(pk: PK): Promise<void>;
 }
 
 
