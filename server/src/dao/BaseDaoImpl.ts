@@ -4,7 +4,6 @@ const sqlite3 = sqlite.verbose();
 import config from '../Config';
 import BaseDao from './BaseDao';
 import DbUtils from '../utils/DbUtils';
-import { async } from 'q';
 
 
 abstract class BaseDaoImpl<PK, MODEL> implements BaseDao<PK, MODEL> {

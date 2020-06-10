@@ -1,7 +1,6 @@
 import BaseService from './BaseService';
 
 import BaseDao from '../dao/BaseDao';
-import { async } from 'q';
 
 
 abstract class BaseServiceImpl<PK, MODEL> implements BaseService<PK, MODEL> {
