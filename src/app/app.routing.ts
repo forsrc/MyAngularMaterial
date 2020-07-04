@@ -31,6 +31,11 @@ const routes: Routes = [
     path: 'table',
     // component: TableComponent,
     loadChildren: './table/table.module#TableModule'
+  },
+  {
+    path: 'chat',
+    // component: DemoComponent,
+    loadChildren: './chat/chat.module#ChatModule'
   }
 ];
 
