@@ -14,7 +14,14 @@
 			</li>
 		</ul>
 	</div>
-	<div class="input-container">
-		<input placeholder="Type something" #messageInput />
+	<div>
+		<form>
+			<mat-form-field class="message-text">
+				<textarea #messageInput matInput placeholder="Type message..."></textarea>
+			</mat-form-field>
+			<button class="send-message-button" mat-icon-button type="submit" aria-label="Send message">
+				<mat-icon class="secondary-text">send</mat-icon>
+			</button>
+		</form>
 	</div>
 </div>

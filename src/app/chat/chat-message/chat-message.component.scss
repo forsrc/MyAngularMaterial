@@ -205,15 +205,18 @@ li {
   li img {
     display: none;
   }
+
   .speech-bubble:before,
   .speech-bubble:after,
   .speech-bubble-own:before,
   .speech-bubble-own:after {
     display: none;
   }
+
   li {
     width: 100%;
   }
+
   .speech-bubble,
   .speech-bubble-own {
     margin-left: 0;
@@ -221,11 +224,22 @@ li {
     width: 100%;
     max-width: 100%;
   }
+
   .title {
     font-size: 20px;
   }
+
   .info {
     font-size: 15px;
   }
 }
 
+
+.message-text {
+  width: 92%;
+}
+
+.send-message-button {
+  position: absolute;
+  margin-top: 10px;
+}
