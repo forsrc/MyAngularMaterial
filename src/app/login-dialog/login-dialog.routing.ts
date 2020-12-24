@@ -1,6 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {LoginDialogComponent} from './login-dialog.component';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
+import { LoginDialogComponent } from './login-dialog.component';
 
 const routes: Routes = [
   {

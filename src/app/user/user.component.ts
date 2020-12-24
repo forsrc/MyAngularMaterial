@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  MatTableDataSource,
-  MatPaginator,
-  MatSort,
-  MatDialog,
-  MatDialogConfig
-} from '@angular/material';
+
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
+
 
 import { User } from '../shared/user';
 import { UserService } from '../service/user.service';

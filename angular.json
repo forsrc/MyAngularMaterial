@@ -32,8 +32,7 @@
             ],
             "scripts": [
               "node_modules/chart.js/dist/Chart.min.js"
-            ],
-            "es5BrowserSupport": true
+            ]
           },
           "configurations": {
             "production": {
@@ -140,5 +139,8 @@
       }
     }
   },
-  "defaultProject": "MyAngularMaterial"
+  "defaultProject": "MyAngularMaterial",
+  "cli": {
+    "analytics": "5674c3e6-0cd3-45ae-ac39-ecb7fe2c355a"
+  }
 }

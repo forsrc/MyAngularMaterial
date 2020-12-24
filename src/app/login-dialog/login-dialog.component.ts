@@ -1,6 +1,10 @@
-import {Component, EventEmitter, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Inject } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +21,8 @@ export class LoginDialogComponent implements OnInit {
   };
 
   constructor(private router: Router,
-              public dialogRef: MatDialogRef<LoginDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public title: any) {
+    public dialogRef: MatDialogRef<LoginDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public title: any) {
   }
 
   ngOnInit() {
@@ -34,7 +38,7 @@ export class LoginDialogComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.event.emit({data: this.userInfo});
+    this.event.emit({ data: this.userInfo });
     this.dialogRef.close();
   }
 }

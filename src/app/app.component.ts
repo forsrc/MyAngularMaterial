@@ -1,5 +1,7 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
-import {OAuth2Service} from './service/oauth.service';
+import { AfterContentInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { OAuth2Service } from './service/oauth.service';
 
 @Component({
   selector: 'app-root',

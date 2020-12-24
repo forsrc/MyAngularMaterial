@@ -1,14 +1,12 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ElementRef,
-  OnDestroy,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-  ViewEncapsulation
-} from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { ElementRef } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { QueryList } from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { ViewChildren } from '@angular/core';
+import { ViewEncapsulation } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
 

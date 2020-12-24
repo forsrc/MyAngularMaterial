@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: './login/login.module#LoginModule'
   },
   {
+    path: 'logout',
+    // component: LoginComponent,
+    loadChildren: './login/login.module#LoginModule'
+  },
+  {
     path: 'demo',
     // component: DemoComponent,
     loadChildren: './demo/demo.module#DemoModule'

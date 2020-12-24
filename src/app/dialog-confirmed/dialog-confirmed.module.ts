@@ -3,19 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 
-
-import { MatPaginatorModule } from '@angular/material/paginator';
-
-
-
-import { TableRoutingModule } from './table.routing.module';
-import { TableComponent } from './table.component';
+import { DemoRoutingModule } from '../demo/demo.routing.module';
+import { DemoComponent } from '../demo/demo.component';
 
 @NgModule({
   imports: [
@@ -25,12 +19,9 @@ import { TableComponent } from './table.component';
     CommonModule,
     FormsModule,
     FlexLayoutModule,
-    MatTableModule,
-    MatPaginatorModule,
-    TableRoutingModule,
-    MatSortModule
+    DemoRoutingModule
   ],
-  declarations: [TableComponent]
+  declarations: [DemoComponent]
 })
-export class TableModule {
+export class DemoModule {
 }
