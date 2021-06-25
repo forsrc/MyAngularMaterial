@@ -18,10 +18,10 @@ export class TableComponent implements OnInit {
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
   @ViewChild(MatPaginator)
-  paginator: MatPaginator;
+  paginator!: MatPaginator;
 
   @ViewChild(MatSort)
-  sort: MatSort;
+  sort!: MatSort;
 
   constructor(private router: Router) {
   }

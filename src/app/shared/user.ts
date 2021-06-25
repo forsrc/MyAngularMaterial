@@ -1,6 +1,6 @@
 
 export class User {
-	index: number;
-	username: String;
-	role: String;
+	index!: number;
+	username!: String;
+	role!: String;
 }

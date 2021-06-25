@@ -19,6 +19,7 @@ import { UserComponent } from './user.component';
 
 import { UserService } from '../service/user.service';
 import { DialogConfirmedComponent } from '../dialog-confirmed/dialog-confirmed.component';
+import { UserEditDialogComponent } from './edit/user-edit-dialog.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { DialogConfirmedComponent } from '../dialog-confirmed/dialog-confirmed.c
   ],
   declarations: [
     UserComponent,
+    UserEditDialogComponent,
     DialogConfirmedComponent
   ],
   providers: [UserService],

@@ -29,9 +29,9 @@ export class UserModule {
   styleUrls: ['./dialog-confirmed.component.scss'],
 })
 export class DialogConfirmedComponent implements OnInit {
-  title: string;
-  key: string;
-  message: string;
+  title!: string;
+  key!: string;
+  message!: string;
 
 
   constructor(

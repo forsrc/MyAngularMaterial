@@ -23,14 +23,14 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   @ViewChild('replyForm')
-  private _replyForm: NgForm;
+  private _replyForm!: NgForm;
 
   @ViewChild('replyInput')
-  private _replyInput: ElementRef;
+  private _replyInput!: ElementRef;
 
 
 
-  private _unsubscribeAll: Subject<any>;
+  private _unsubscribeAll!: Subject<any>;
 
   constructor(private router: Router) {
   }
@@ -52,7 +52,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     //this.router.navigate(['/chat']);
   }
 
-  reply(event): void {
+  reply(event: any): void {
     event.preventDefault();
     alert(this._replyForm.form.value.message);
   }
