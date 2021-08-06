@@ -13,6 +13,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
 import { User } from '../shared/user';
 import { UserService } from '../service/user.service';
 import { DialogConfirmedComponent } from '../dialog-confirmed/dialog-confirmed.component';
+import { UserEditDialogComponent } from './edit/user-edit-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -23,13 +24,14 @@ export class UserComponent implements OnInit {
 
   users: any = [];
   displayedColumns: string[] = ['index', 'username', 'role', 'action'];
-  dataSource: MatTableDataSource<User>;
+
+  dataSource!: MatTableDataSource<User>;
 
   @ViewChild(MatPaginator)
-  paginator: MatPaginator;
+  paginator!: MatPaginator;
 
   @ViewChild(MatSort)
-  sort: MatSort;
+  sort!: MatSort;
 
   constructor(private router: Router, private userService: UserService, public dialog: MatDialog) {
   }
@@ -83,5 +85,30 @@ export class UserComponent implements OnInit {
 
   edit(user: User): void {
 
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '400px';
+    dialogConfig.width = '800px';
+    dialogConfig.data = {
+      title: "Edit",
+      user: user
+    };
+    const dialogRef = this.dialog.open(UserEditDialogComponent, dialogConfig);
+
+    
+    dialogRef.afterClosed().subscribe(result => {
+      //console.log("dialogRef.afterClosed()", result)
+      //console.log("--->", result);
+      if (result) {
+        this.dataSource.data.map((user , i) => {
+          //console.log(user , i);
+          if (result.username === user.username) {
+            user.role = result.role;
+          }
+        });
+        //this.userServicr.delete(user.username).subscribe();
+      }
+    });
   }
 }

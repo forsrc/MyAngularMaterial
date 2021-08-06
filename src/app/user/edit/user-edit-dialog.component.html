@@ -1,0 +1,16 @@
+<div class="container">
+  <h3 mat-dialog-title>{{ title }} Username: {{ user.username }}</h3>
+
+  
+ 
+      <mat-form-field class="w-100">
+            <input matInput placeholder="Username" value="{{user.username}}">
+      </mat-form-field>
+      <mat-form-field class="w-100">
+            <input matInput placeholder="Role" value="{{user.role}}" [(ngModel)]="user.role" >
+      </mat-form-field>
+      <button color="primary" mat-button cdkFocusInitial [mat-dialog-close]="user"> Confirm </button>
+      <button color="primary" mat-button cdkFocusInitial mat-dialog-close> Cancel </button>
+ 
+   
+</div>

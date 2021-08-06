@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 @Injectable()
 export class OAuth2Service {
 
-  accessToken: string;
-  expiresAt: number;
+  accessToken!: string | null;
+  expiresAt!: number;
   isLogined = false;
 
   constructor(public router: Router) {
@@ -21,7 +21,7 @@ export class OAuth2Service {
   public logout(): void {
 
     this.accessToken = null;
-    this.expiresAt = null;
+    this.expiresAt = 0;
     this.isLogined = false;
     this.router.navigate(['/']);
   }
