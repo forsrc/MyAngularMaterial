@@ -20,18 +20,18 @@ class Router {
 
         router
             .get('/user', cors(), this.userController.list)
-            .post('/user', cors(), this.userController.save)
             .get('/user/:username', cors(), this.userController.get)
-            .put('/user', cors(), this.userController.update)
+            .post('/user', cors(), this.userController.save)
+            .put('/user/:username', cors(), this.userController.update)
             .delete('/user/:username', cors(), this.userController.delete)
             ;
 
         router
             .get('/role', cors(), this.userRoleController.list)
-            .post('/role', cors(), this.userRoleController.save)
             .get('/role/:username/:role', cors(), this.userRoleController.get)
             .get('/role/:username', cors(), this.userRoleController.findBy)
-            .put('/role/:username', cors(), this.userRoleController.update)
+            .post('/role', cors(), this.userRoleController.save)
+            .put('/role/:username/:role', cors(), this.userRoleController.update)
             .delete('/role/:username/:role', cors(), this.userRoleController.delete)
             ;
 
