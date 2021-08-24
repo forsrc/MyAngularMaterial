@@ -10,11 +10,11 @@ import UserRole from '../model/UserRole'
 class UserRoleController extends BaseControllerImpl<UserRole> implements BaseController<UserRole>{
 
 
-    private userRoleServic: UserRoleService;
+    private userRoleService: UserRoleService;
 
-    constructor(userrRoleServic: UserRoleService) {
-        super(userrRoleServic);
-        this.userRoleServic = userrRoleServic;
+    constructor(userrRoleService: UserRoleService) {
+        super(userrRoleService);
+        this.userRoleService = userrRoleService;
     }
 
 

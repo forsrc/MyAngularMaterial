@@ -1,5 +1,10 @@
 import config from './Config';
 import DbUtils from './utils/DbUtils';
+import Init from './Init';
+import UserController from './controller/UserController';
+import User from './model/User';
+import UserRole from './model/UserRole';
+import UserRole from './model/UserRole';
 
 
 class InitDb {
@@ -40,30 +45,49 @@ CREATE TABLE IF NOT EXISTS user_role
 DELETE FROM user;
 `];
 
-        this.run(sqls);
+        await this.run(sqls);
 
         let sql: string = `
 INSERT INTO user (username, password, enabled) VALUES (?, ?, ?)
 `;
 
 
-        await DbUtils.getInstance().run(
-            sql,
-            ["forsrc", "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e", 1]
-        ).then((one) => {
-            //console.log("user -->", one);
-        }).catch((err) => {
-            console.error(err);
-        });
+        // await DbUtils.getInstance().run(
+        //     sql,
+        //     ["forsrc", "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e", 1]
+        // ).then((one) => {
+        //     //console.log("user -->", one);
+        // }).catch((err) => {
+        //     console.error(err);
+        // });
 
-        await DbUtils.getInstance().run(
-            sql,
-            ["user", "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e", 1]
-        ).then((one) => {
-            //console.log("user -->", one);
-        }).catch((err) => {
-            console.error(err);
-        });
+        // await DbUtils.getInstance().run(
+        //     sql,
+        //     ["user", "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e", 1]
+        // ).then((one) => {
+        //     //console.log("user -->", one);
+        // }).catch((err) => {
+        //     console.error(err);
+        // });
+
+        let user: any = {
+            username: "forsrc", 
+            password: "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e",
+            enabled: 0,
+            version: 0,
+            //create: null,
+            //update: null
+        };
+        await Init.userService.save(user);
+        user = {username: "user",
+            password: "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e",
+            enabled: 0,
+            version: 0,
+            //create: null,
+            //update: null
+        };
+        await Init.userService.save(user);
+
         sql = "SELECT * from user;";
         await DbUtils.getInstance().all(sql, []).then((rows) => {
             console.log("rows -->", rows);
@@ -86,19 +110,41 @@ INSERT INTO user (username, password, enabled) VALUES (?, ?, ?)
         sql = `SELECT * from user`;
         let list = await DbUtils.getInstance().run(sql, []);
         console.error("list", "-->", list);
+
+        let userRole: any = {
+            username: "forsrc",
+            role: "ROLE_ADMIN"
+        };
+        await Init.userRoleService.save(userRole);
     }
 
-    run(sqls: string[]) {
-        sqls.forEach(async sql => {
-            await DbUtils.getInstance().run(
-                sql,
-                []
-            ).then((one) => {
-                //console.log("user -->", one);
-            }).catch((err) => {
-                console.error(err);
+    async run(sqls: string[]) {
+        return new Promise<void>(async (resolve, reject) => {
+
+            let promises = [];
+
+            sqls.forEach(async sql => {
+
+                promises.push(new Promise<void>(async (_resolve, _reject) => {
+                    await DbUtils.getInstance().run(
+                        sql,
+                        []
+                    ).then((one) => {
+                        _resolve(one);
+                    }).catch((err) => {
+                        console.error(err);
+                        _reject(err);
+                    });
+                }));
+
+                Promise.all(promises).then(() => {
+                    resolve();
+                }).catch(err => {
+                    reject(err);
+                });
             });
         });
+
     }
 }
 

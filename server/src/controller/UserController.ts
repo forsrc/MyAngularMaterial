@@ -10,11 +10,11 @@ import User from '../model/User'
 class UserController extends BaseControllerImpl<User> implements BaseController<User>{
 
 
-    private userServic: UserService;
+    private userService: UserService;
 
-    constructor(userServic: UserService) {
-        super(userServic);
-        this.userServic = userServic;
+    constructor(userService: UserService) {
+        super(userService);
+        this.userService = userService;
     }
 
 

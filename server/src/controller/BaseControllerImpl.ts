@@ -21,13 +21,14 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
 
     list(req: express.Request, res: express.Response): void {
 
-        console.log(new Date().toISOString(), this.constructor.name, "list");
+        
 
         this.baseService.list().then((list: MODEL[]) => {
-            console.log(new Date().toISOString(), this.constructor.name, "list   --->", list);
-            res.status(200).json({ status: "ok", data: list, total:  list.length});
+            console.log(new Date().toISOString(), this.constructor.name, "list", "[OK]","-->", list);
+            res.status(200).json({ status: "[OK]", data: list, total:  list.length});
         }).catch((err) => {
-            res.status(400).json({ status: "ng", error: err });
+            console.log(new Date().toISOString(), this.constructor.name, "list", "[NG]");
+            res.status(400).json({ status: "[NG]", error: err });
         });
 
     }
@@ -35,19 +36,19 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
 
     save(req: express.Request, res: express.Response): void {
         if (!req.body) {
-            res.status(400).json({ status: "ng", error: "req.body is empty" });
+            res.status(400).json({ status: "[NG]", error: "req.body is empty" });
             return;
         }
         let model: MODEL = {} as MODEL;
         Object.assign(model, req.body);
 
-        console.log(new Date().toISOString(), this.constructor.name, "save   --->", model);
 
         this.baseService.save(model).then((info) => {
-
-            res.status(200).json({ status: "ok", message: info });
+            console.log(new Date().toISOString(), this.constructor.name, "save", "[OK]","--->", model);
+            res.status(200).json({ status: "[OK]", message: info });
         }).catch((err) => {
-            res.status(400).json({ status: "ng", error: err });
+            console.log(new Date().toISOString(), this.constructor.name, "save", "[NG]","--->", model);
+            res.status(400).json({ status: "[NG]", error: err });
         });
 
     }
@@ -58,18 +59,21 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
         let model: MODEL = {} as MODEL;
         Object.assign(model, req.params);
 
-        console.log(new Date().toISOString(), this.constructor.name, "get    --->", model);
+        
 
         this.baseService.get(model).then((list: MODEL[]) => {
             if (list && list.length > 0) {
-                res.status(200).json({ status: "ok", data: list , total:  list.length});
+                console.log(new Date().toISOString(), this.constructor.name, "get", "[OK]", "--->", model);
+                res.status(200).json({ status: "[OK]", data: list , total:  list.length});
             } else {
-                res.status(404).json({ status: "ng", error: `no such '${JSON.stringify(model)}'` });
+                console.log(new Date().toISOString(), this.constructor.name, "get", "[NG]", "--->", model);
+                res.status(404).json({ status: "[NG]", error: `no such '${JSON.stringify(model)}'` });
             }
 
 
         }).catch((err) => {
-            res.status(400).json({ status: "ng", "error": err });
+            console.log(new Date().toISOString(), this.constructor.name, "get", "[NG]", "--->", model);
+            res.status(400).json({ status: "[NG]", "error": err });
         });
 
     }
@@ -77,24 +81,26 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
 
     update(req: express.Request, res: express.Response) {
         if (!req.body) {
-            res.status(400).json({ status: "ng", error: "req.body is empty" });
+            res.status(400).json({ status: "[NG]", error: "req.body is empty" });
             return;
         }
 
         let model: MODEL = {} as MODEL;
         Object.assign(model, req.body);
 
-        console.log(new Date().toISOString(), this.constructor.name, "update --->", model);
 
         this.baseService.update(model).then((info) => {
             if (info) {
-                res.status(200).json({ status: "ok", message: info });
+                console.log(new Date().toISOString(), this.constructor.name, "update", "[OK]", "--->", model);
+                res.status(200).json({ status: "[OK]", message: info });
             } else {
-                res.status(404).json({ status: "ng", error: `no such '${JSON.stringify(model)}'` });
+                console.log(new Date().toISOString(), this.constructor.name, "update", "[NG]", "--->", model);
+                res.status(404).json({ status: "[NG]", error: `no such '${JSON.stringify(model)}'` });
             }
 
         }).catch((err) => {
-            res.status(400).json({ status: "ng", "error": err });
+            console.log(new Date().toISOString(), this.constructor.name, "update", "[NG]", "--->", model);
+            res.status(400).json({ status: "[NG]", "error": err });
         });
     }
 
@@ -104,12 +110,12 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
         let model: MODEL = {} as MODEL;
         Object.assign(model, req.params);
 
-        console.log(new Date().toISOString(), this.constructor.name, "delete --->", model);
-
         this.baseService.delete(model).then((status) => {
-            res.status(200).json({ status: "ok", message: `'${JSON.stringify(model)}' is deleted.` });
+            console.log(new Date().toISOString(), this.constructor.name, "delete", "[OK]", "--->", model);
+            res.status(200).json({ status: "[OK]", message: `'${JSON.stringify(model)}' is deleted.` });
         }).catch((err) => {
-            res.status(400).json({ status: "ng", "error": err });
+            console.log(new Date().toISOString(), this.constructor.name, "delete", "[NG]", "--->", model);
+            res.status(400).json({ status: "[NG]", "error": err });
         });
     }
 }

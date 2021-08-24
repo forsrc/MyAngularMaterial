@@ -24,18 +24,24 @@ class DbUtils {
         this.debug = debug;
     }
     public async setDb(db: string) {
-        if (this.db) {
-            await this.close();
-        }
-        this.db = new sqlite3.Database(db, (err) => {
-            if (err) {
-                console.error(new Date().toISOString(), this.constructor.name, 'Could not connect to database:', db, err)
-            } else {
-                console.log(new Date().toISOString(), this.constructor.name, 'Connected to database', db)
+
+        return new Promise<void>(async (resolve, reject) => {
+            if (this.db) {
+                await this.close();
             }
-        });
-        this.db.on("error", (error) => {
-            console.error(new Date().toISOString(), this.constructor.name, "DbUtils error : ", error);
+            this.db = new sqlite3.Database(db, (err) => {
+                if (err) {
+                    console.error(new Date().toISOString(), this.constructor.name, 'Could not connect to database:', db, err);
+                    reject(err);
+                } else {
+                    console.log(new Date().toISOString(), this.constructor.name, 'Connected to database', db);
+                    resolve();
+                }
+            });
+            this.db.on("error", (error) => {
+                console.error(new Date().toISOString(), this.constructor.name, "DbUtils error : ", error);
+                // reject(error);
+            });
         });
     }
 
@@ -44,12 +50,22 @@ class DbUtils {
     }
 
 
-    public async close() {
-        this.db.close();
-        this.db = null;
+    public close() : Promise<void> {
+
+        return new Promise<void>((resolve, reject) => {
+            this.db.close((err) => {
+                if (err) {
+                    reject(err);
+                    return;
+                }
+                this.db = null;
+                resolve();
+            });
+        });
+
     }
 
-    public async run(sql: string, params: any): Promise<any> {
+    public run(sql: string, params: any): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.db.run(sql, params, function (err) {
                 if (err) {
@@ -64,7 +80,7 @@ class DbUtils {
         });
     }
 
-    public async all(sql: string, params: any): Promise<any> {
+    public all(sql: string, params: any): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             this.db.all(sql, params, (err, rows) => {
                 if (err) {
@@ -73,15 +89,12 @@ class DbUtils {
                     return;
                 }
                 if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[all] ", sql, " --> ", rows);
-                if (!rows) {
-                    return;
-                }
                 resolve(rows)
             });
         });
     }
 
-    public async get(table: string, where: any): Promise<any[]> {
+    public get(table: string, where: any): Promise<any[]> {
         return new Promise<any>((resolve, reject) => {
             let length = Object.keys(where).length;
             let params: any = new Array(length);
@@ -106,16 +119,13 @@ class DbUtils {
                     return;
                 }
                 if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[get] ", sql, " --> ", rows);
-                if (!rows) {
-                    return;
-                }
                 resolve(rows);
             });
         });
     }
 
 
-    public async insert(table: string, model: any): Promise<any> {
+    public insert(table: string, model: any): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             let length = Object.keys(model).length;
             let params: any = new Array(length);
@@ -147,7 +157,7 @@ class DbUtils {
         });
     }
 
-    public async update(table: string, model: any, where: any): Promise<any> {
+    public update(table: string, model: any, where: any): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             let length = Object.keys(model).length + Object.keys(where).length;
             let params: any = new Array(length);
@@ -184,7 +194,7 @@ class DbUtils {
         });
     }
 
-    public async delete(table: string, where: any): Promise<any> {
+    public delete(table: string, where: any): Promise<any> {
         return new Promise<any>((resolve, reject) => {
             let length = Object.keys(where).length;
             let params: any = new Array(length);
