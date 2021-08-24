@@ -7,6 +7,8 @@ interface BaseDao<MODEL> {
     save(model: MODEL): Promise<MODEL>;
 
     get(pk: any): Promise<MODEL[]>;
+  
+    findBy(key: any): Promise<MODEL[]>;
 
     update(model: MODEL): Promise<MODEL>;
 

@@ -10,6 +10,8 @@ interface BaseController<MODEL> {
 
     get(req: express.Request, res: express.Response): void;
 
+    findBy(req: express.Request, res: express.Response): void;
+
     update(req: express.Request, res: express.Response): void;
 
     delete(req: express.Request, res: express.Response): void

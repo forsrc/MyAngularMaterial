@@ -29,9 +29,10 @@ class Router {
         router
             .get('/role', cors(), this.userRoleController.list)
             .post('/role', cors(), this.userRoleController.save)
-            .get('/role/:username', cors(), this.userRoleController.get)
+            .get('/role/:username/:role', cors(), this.userRoleController.get)
+            .get('/role/:username', cors(), this.userRoleController.findBy)
             .put('/role/:username', cors(), this.userRoleController.update)
-            .delete('/role/:username', cors(), this.userRoleController.delete)
+            .delete('/role/:username/:role', cors(), this.userRoleController.delete)
             ;
 
         router.options('*', cors());

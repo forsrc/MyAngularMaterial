@@ -15,6 +15,7 @@ abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
         this.list = this.list.bind(this);
         this.save = this.save.bind(this);
         this.get = this.get.bind(this);
+        this.findBy = this.findBy.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
     }
@@ -37,17 +38,21 @@ abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
      get(pk: any): Promise<MODEL[]> {
         for (let key in this.getPk()) {
             if (!pk[this.getPk()[key]]) {
-                return Promise.reject({ error: `${key} is empty` });
+                return Promise.reject({ error: `PK(${this.getPk()}) ${this.getPk()[key]} is empty` });
             }
         }
         return DbUtils.getInstance().get(this.getTableName(), pk);
+    }
+
+    findBy(key: any): Promise<MODEL[]> {
+        return DbUtils.getInstance().get(this.getTableName(), key);
     }
 
      update(model: MODEL): Promise<MODEL> {
         let pk: any = {};
         for (let key in this.getPk()) {
             if (!model[this.getPk()[key]]) {
-                return Promise.reject({ error: `${key} is empty` });
+                return Promise.reject({ error: `PK(${this.getPk()}) ${this.getPk()[key]} is empty` });
             }
             pk[key] = model[key];
         }
@@ -57,7 +62,7 @@ abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
      delete(pk: any): Promise<void> {
         for (let key in this.getPk()) {
             if (!pk[this.getPk()[key]]) {
-                return Promise.reject({ error: `${key} is empty` });
+                return Promise.reject({ error: `PK(${this.getPk()}) ${this.getPk()[key]} is empty` });
             }
         }
         return DbUtils.getInstance().delete(this.getTableName(), pk);

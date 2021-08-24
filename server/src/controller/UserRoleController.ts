@@ -3,6 +3,7 @@ import BaseController from './BaseController';
 import BaseControllerImpl from './BaseControllerImpl';
 import UserRoleService from '../service/UserRoleService';
 import UserRole from '../model/UserRole'
+import express from 'express';
 
 
 
@@ -12,9 +13,9 @@ class UserRoleController extends BaseControllerImpl<UserRole> implements BaseCon
 
     private userRoleService: UserRoleService;
 
-    constructor(userrRoleService: UserRoleService) {
-        super(userrRoleService);
-        this.userRoleService = userrRoleService;
+    constructor(userRoleService: UserRoleService) {
+        super(userRoleService);
+        this.userRoleService = userRoleService;
     }
 
 

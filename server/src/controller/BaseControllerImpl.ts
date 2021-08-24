@@ -13,6 +13,7 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
         this.list = this.list.bind(this);
         this.save = this.save.bind(this);
         this.get = this.get.bind(this);
+        this.findBy = this.findBy.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
         this.baseService = baseService;
@@ -62,6 +63,30 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
         
 
         this.baseService.get(model).then((list: MODEL[]) => {
+            if (list && list.length > 0) {
+                console.log(new Date().toISOString(), this.constructor.name, "get", "[OK]", "--->", model);
+                res.status(200).json({ status: "ok", data: list , total:  list.length});
+            } else {
+                console.log(new Date().toISOString(), this.constructor.name, "get", "[NG]", "--->", model);
+                res.status(404).json({ status: "ng", error: `no such '${JSON.stringify(model)}'` });
+            }
+
+
+        }).catch((err) => {
+            console.log(new Date().toISOString(), this.constructor.name, "get", "[NG]", "--->", model);
+            res.status(400).json({ status: "ng", "error": err });
+        });
+
+    }
+
+    findBy(req: express.Request, res: express.Response) {
+
+        let model: MODEL = {} as MODEL;
+        Object.assign(model, req.params);
+
+        
+
+        this.baseService.findBy(model).then((list: MODEL[]) => {
             if (list && list.length > 0) {
                 console.log(new Date().toISOString(), this.constructor.name, "get", "[OK]", "--->", model);
                 res.status(200).json({ status: "ok", data: list , total:  list.length});

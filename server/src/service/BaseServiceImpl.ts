@@ -12,24 +12,29 @@ abstract class BaseServiceImpl<MODEL> implements BaseService<MODEL> {
         this.list = this.list.bind(this);
         this.save = this.save.bind(this);
         this.get = this.get.bind(this);
+        this.findBy = this.findBy.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
         this.baseDao = baseDao;
     }
 
-    async list(): Promise<MODEL[]> {
-        return await this.baseDao.list();
+    list(): Promise<MODEL[]> {
+        return this.baseDao.list();
     }
 
-    async save(model: MODEL): Promise<MODEL> {
-        return await this.baseDao.save(model);
+    save(model: MODEL): Promise<MODEL> {
+        return  this.baseDao.save(model);
     }
 
-    async get(pk: any): Promise<MODEL[]> {
+    get(pk: any): Promise<MODEL[]> {
         return this.baseDao.get(pk);
     }
 
-    async update(model: MODEL): Promise<MODEL> {
+    findBy(pk: any): Promise<MODEL[]> {
+        return this.baseDao.findBy(pk);
+    }
+
+    update(model: MODEL): Promise<MODEL> {
         return this.baseDao.update(model);
     }
 
