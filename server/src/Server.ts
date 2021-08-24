@@ -8,14 +8,14 @@ import Test from './test';
 const port = parseInt(process.env.PORT || '3000');
 
 const options = {
-  key: fs.readFileSync(path.resolve('./ssl/privatekey.pem')),
-  cert: fs.readFileSync(path.resolve('./ssl/certificate.pem'))
+  // key: fs.readFileSync(path.resolve('./ssl/privatekey.pem')),
+  // cert: fs.readFileSync(path.resolve('./ssl/certificate.pem'))
 };
 
 
 
 const Server = new App().Start(options, port)
-  .then(port => console.log(`Server running on port ${port}`))
+  .then(p => console.log(`Server running on port ${p}`))
   .catch(error => {
     console.log(error)
     process.exit(1);
