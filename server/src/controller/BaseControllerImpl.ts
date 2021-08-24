@@ -23,7 +23,7 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
 
         console.log(new Date().toISOString(), this.constructor.name, "list   --->");
 
-        this.baseService.list().then((list: Model[]) => {
+        this.baseService.list().then((list: MODEL[]) => {
             res.status(200).json({ status: "ok", data: list, total:  list.length});
         }).catch((err) => {
             res.status(400).json({ status: "ng", error: err });

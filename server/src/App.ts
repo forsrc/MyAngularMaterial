@@ -2,7 +2,6 @@ import express from 'express'
 import Router from './router'
 import swaggerUi from 'swagger-ui-express'
 import * as swaggerDocument from './swagger.json'
-import * as bodyParser from 'body-parser'
 import https from 'https';
 
 class App {
@@ -11,9 +10,9 @@ class App {
   constructor() {
     this.app = express();
 
-    this.app.use(bodyParser.urlencoded({ extended: true }));
-    this.app.use(bodyParser.json());
-    this.app.use(bodyParser.raw());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(express.json());
+    this.app.use(express.raw());
 
 
 
@@ -21,7 +20,7 @@ class App {
 
     this.app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-    this.app.post('/test/post', bodyParser.urlencoded({ extended: true }), (req, res) => {
+    this.app.post('/test/post', (req, res) => {
       res.status(200).json({ body: req.body });
     });
 
