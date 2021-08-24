@@ -50,7 +50,7 @@ class DbUtils {
     }
 
     public async run(sql: string, params: any): Promise<any> {
-        let resolve: Promise<any> = new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             this.db.run(sql, params, function (err) {
                 if (err) {
                     console.error(new Date().toISOString(), this.constructor.name, '[ERROR] sql ', sql, err);
@@ -62,11 +62,10 @@ class DbUtils {
 
             });
         });
-        return resolve;
     }
 
     public async all(sql: string, params: any): Promise<any> {
-        let resolve: Promise<any> = new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             this.db.all(sql, params, (err, rows) => {
                 if (err) {
                     console.error(new Date().toISOString(), this.constructor.name, '[ERROR] sql ', sql, err);
@@ -80,11 +79,10 @@ class DbUtils {
                 resolve(rows)
             });
         });
-        return resolve;
     }
 
     public async get(table: string, where: any): Promise<any[]> {
-        let resolve: Promise<any> = new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             let length = Object.keys(where).length;
             let params: any = new Array(length);
             let whereSql: string = '';
@@ -114,12 +112,11 @@ class DbUtils {
                 resolve(rows);
             });
         });
-        return resolve;
     }
 
 
     public async insert(table: string, model: any): Promise<any> {
-        let resolve: Promise<any> = new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             let length = Object.keys(model).length;
             let params: any = new Array(length);
             let namesSql: string = '';
@@ -148,11 +145,10 @@ class DbUtils {
                 resolve({ lastID: this.lastID, changes: this.changes });
             });
         });
-        return resolve;
     }
 
     public async update(table: string, model: any, where: any): Promise<any> {
-        let resolve: Promise<any> = new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             let length = Object.keys(model).length + Object.keys(where).length;
             let params: any = new Array(length);
             let setSql: string = '';
@@ -186,11 +182,10 @@ class DbUtils {
                 resolve({ lastID: this.lastID, changes: this.changes });
             });
         });
-        return resolve;
     }
 
     public async delete(table: string, where: any): Promise<any> {
-        let resolve: Promise<any> = new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
             let length = Object.keys(where).length;
             let params: any = new Array(length);
             let whereSql: string = '';
@@ -216,7 +211,6 @@ class DbUtils {
                 resolve({ lastID: this.lastID, changes: this.changes });
             });
         });
-        return resolve;
     }
 }
 
