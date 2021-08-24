@@ -14,7 +14,9 @@ interface BaseController<MODEL> {
 
     update(req: express.Request, res: express.Response): void;
 
-    delete(req: express.Request, res: express.Response): void
+    delete(req: express.Request, res: express.Response): void;
+
+    count(req: express.Request, res: express.Response): void;
 }
 
 

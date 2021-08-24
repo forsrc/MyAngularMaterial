@@ -15,6 +15,7 @@ abstract class BaseServiceImpl<MODEL> implements BaseService<MODEL> {
         this.findBy = this.findBy.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
+        this.count = this.count.bind(this);
         this.baseDao = baseDao;
     }
 
@@ -40,6 +41,10 @@ abstract class BaseServiceImpl<MODEL> implements BaseService<MODEL> {
 
     delete(pk: any): Promise<void> {
         return this.baseDao.delete(pk);
+    }
+
+    count(where: any): Promise<number> {
+        return this.baseDao.count(where);
     }
 }
 

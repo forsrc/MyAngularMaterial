@@ -20,6 +20,7 @@ class Router {
 
         router
             .get('/user', cors(), this.userController.list)
+            .get('/user/_count', cors(), this.userController.count)
             .get('/user/:username', cors(), this.userController.get)
             .post('/user', cors(), this.userController.save)
             .put('/user/:username', cors(), this.userController.update)
@@ -28,6 +29,8 @@ class Router {
 
         router
             .get('/role', cors(), this.userRoleController.list)
+            .get('/role/_count', cors(), this.userRoleController.count)
+            .get('/role/:username/_count', cors(), this.userRoleController.count)
             .get('/role/:username/:role', cors(), this.userRoleController.get)
             .get('/role/:username', cors(), this.userRoleController.findBy)
             .post('/role', cors(), this.userRoleController.save)

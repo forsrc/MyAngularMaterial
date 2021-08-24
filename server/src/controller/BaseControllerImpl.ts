@@ -16,6 +16,7 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
         this.findBy = this.findBy.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
+        this.count = this.count.bind(this);
         this.baseService = baseService;
     }
 
@@ -88,10 +89,10 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
 
         this.baseService.findBy(model).then((list: MODEL[]) => {
             if (list && list.length > 0) {
-                console.log(new Date().toISOString(), this.constructor.name, "get", "[OK]", "--->", model);
+                console.log(new Date().toISOString(), this.constructor.name, "findBy", "[OK]", "--->", model);
                 res.status(200).json({ status: "ok", data: list , total:  list.length});
             } else {
-                console.log(new Date().toISOString(), this.constructor.name, "get", "[NG]", "--->", model);
+                console.log(new Date().toISOString(), this.constructor.name, "findBy", "[NG]", "--->", model);
                 res.status(404).json({ status: "ng", error: `no such '${JSON.stringify(model)}'` });
             }
 
@@ -140,6 +141,21 @@ abstract class BaseControllerImpl<MODEL> implements BaseController<MODEL>{
             res.status(200).json({ status: "ok", message: `'${JSON.stringify(model)}' is deleted.` });
         }).catch((err) => {
             console.log(new Date().toISOString(), this.constructor.name, "delete", "[NG]", "--->", model);
+            res.status(400).json({ status: "ng", "error": err });
+        });
+    }
+
+    
+    count(req: express.Request, res: express.Response) {
+
+        let model: MODEL = {} as MODEL;
+        Object.assign(model, req.params);
+
+        this.baseService.count(model).then((count) => {
+            console.log(new Date().toISOString(), this.constructor.name, "count", "[OK]", "--->", model, count);
+            res.status(200).json({ status: "ok", count: count});
+        }).catch((err) => {
+            console.log(new Date().toISOString(), this.constructor.name, "count", "[NG]", "--->", model);
             res.status(400).json({ status: "ng", "error": err });
         });
     }

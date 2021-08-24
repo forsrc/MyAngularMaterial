@@ -76,7 +76,8 @@ INSERT INTO user (username, password, enabled) VALUES (?, ?, ?)
             //update: null
         };
         await Init.userService.save(user);
-        user = {username: "user",
+        user = {
+            username: "user",
             password: "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e",
             enabled: 0,
             version: 0,
@@ -104,15 +105,37 @@ INSERT INTO user (username, password, enabled) VALUES (?, ?, ?)
         });
 
 
-        sql = `SELECT * from user`;
-        let list = await DbUtils.getInstance().run(sql, []);
-        console.error("list", "-->", list);
+        sql = `SELECT * from user;`;
+        await DbUtils.getInstance().all(sql, []).then((list) => {
+            console.log("user list -->", list);
+        }).catch((err) => {
+            console.error(err);
+        });
+ 
 
         let userRole: any = {
             username: "forsrc",
             role: "ROLE_ADMIN"
         };
-        await Init.userRoleService.save(userRole);
+        await Init.userRoleService.save(userRole).catch(err => {
+            //console.log(err);
+        });
+
+        userRole = {
+            username: "forsrc",
+            role: "ROLE_USER"
+        };
+        await Init.userRoleService.save(userRole).catch(err => {
+            //console.log(err);
+        });
+
+        userRole = {
+            username: "user",
+            role: "ROLE_USER"
+        };
+        await Init.userRoleService.save(userRole).catch(err => {
+            //console.log(err);
+        });
     }
 
     run(sqls: string[]) {

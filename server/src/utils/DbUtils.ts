@@ -24,22 +24,22 @@ class DbUtils {
         this.debug = debug;
     }
     public async setDb(db: string) {
-
+        let _this = this;
         return new Promise<void>(async (resolve, reject) => {
             if (this.db) {
                 await this.close();
             }
             this.db = new sqlite3.Database(db, (err) => {
                 if (err) {
-                    console.error(new Date().toISOString(), this.constructor.name, 'Could not connect to database:', db, err);
+                    console.error(new Date().toISOString(), _this.constructor.name, 'Could not connect to database:', db, err);
                     reject(err);
                 } else {
-                    console.log(new Date().toISOString(), this.constructor.name, 'Connected to database', db);
+                    console.log(new Date().toISOString(), _this.constructor.name, 'Connected to database', db);
                     resolve();
                 }
             });
             this.db.on("error", (error) => {
-                console.error(new Date().toISOString(), this.constructor.name, "DbUtils error : ", error);
+                console.error(new Date().toISOString(), _this.constructor.name, "DbUtils error : ", error);
                 // reject(error);
             });
         });
@@ -66,35 +66,38 @@ class DbUtils {
     }
 
     public run(sql: string, params: any): Promise<any> {
+        let _this = this;
         return new Promise<any>((resolve, reject) => {
             this.db.run(sql, params, function (err) {
                 if (err) {
-                    console.error(new Date().toISOString(), this.constructor.name, '[ERROR] sql ', sql, err);
+                    console.error(new Date().toISOString(), _this.constructor.name, '[ERROR] sql ', sql, params, err);
                     reject(err)
                     return;
                 }
-                if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[run] -->", this);
-                resolve({ id: this.lastID, changes: this.changes });
+                if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[run] -->", sql, params, this);
+                resolve({ id: this.lastID, changes: this.changes});
 
             });
         });
     }
 
     public all(sql: string, params: any): Promise<any> {
+        let _this = this;
         return new Promise<any>((resolve, reject) => {
             this.db.all(sql, params, (err, rows) => {
                 if (err) {
-                    console.error(new Date().toISOString(), this.constructor.name, '[ERROR] sql ', sql, err);
+                    console.error(new Date().toISOString(), _this.constructor.name, '[ERROR] sql ', sql, params, err);
                     reject(err)
                     return;
                 }
-                if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[all] ", sql, " --> ", rows);
+                if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[all] ", sql, params, " --> ", rows);
                 resolve(rows)
             });
         });
     }
 
     public get(table: string, where: any): Promise<any[]> {
+        let _this = this;
         return new Promise<any>((resolve, reject) => {
             let length = Object.keys(where).length;
             let params: any = new Array(length);
@@ -114,18 +117,49 @@ class DbUtils {
 
             this.db.all(sql, params, (err, rows) => {
                 if (err) {
-                    console.error(new Date().toISOString(), this.constructor.name, '[ERROR] sql ', sql, err);
+                    console.error(new Date().toISOString(), _this.constructor.name, '[ERROR] sql ', sql, where, err);
                     reject(err);
                     return;
                 }
-                if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[get] ", sql, " --> ", rows);
+                if (DbUtils.debug) console.log(new Date().toISOString(), _this.constructor.name, "[get] ", sql, where, " --> ", rows);
                 resolve(rows);
             });
         });
     }
 
+    public count(table: string, where: any): Promise<number> {
+        let _this = this;
+        return new Promise<any>((resolve, reject) => {
+            let length = Object.keys(where).length;
+            let params: any = new Array(length);
+            let whereSql: string = '';
+            if (length > 0) {
+                whereSql += " WHERE ";
+                let index: number = 0;
+
+                for (let key in where) {
+                    whereSql += `${key} = ? AND `;
+                    params[index++] = where[key];
+                }
+                whereSql = whereSql.substr(0, whereSql.length - 4);
+            }
+
+            let sql: string = `SELECT COUNT(1) AS count FROM ${table} ${whereSql}`;
+
+            this.db.all(sql, params, (err, rows) => {
+                if (err) {
+                    console.error(new Date().toISOString(), _this.constructor.name, '[ERROR] sql ', sql, where, err);
+                    reject(err);
+                    return;
+                }
+                if (DbUtils.debug) console.log(new Date().toISOString(), _this.constructor.name, "[get] ", sql, where, " --> ", rows);
+                resolve(rows[0]["count"]);
+            });
+        });
+    }
 
     public insert(table: string, model: any): Promise<any> {
+        let _this = this;
         return new Promise<any>((resolve, reject) => {
             let length = Object.keys(model).length;
             let params: any = new Array(length);
@@ -147,17 +181,18 @@ class DbUtils {
 
             this.db.run(sql, params, function (err) {
                 if (err) {
-                    console.error(new Date().toISOString(), this.constructor.name, '[ERROR] sql ', sql, err);
+                    console.error(new Date().toISOString(), _this.constructor.name, '[ERROR] sql ', sql, model, err);
                     reject(err);
                     return;
                 }
-                if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[insert] ", sql, " --> ", this);
+                if (DbUtils.debug) console.log(new Date().toISOString(), _this.constructor.name, "[insert] ", sql, model, " --> ", this);
                 resolve({ lastID: this.lastID, changes: this.changes });
             });
         });
     }
 
     public update(table: string, model: any, where: any): Promise<any> {
+        let _this = this;
         return new Promise<any>((resolve, reject) => {
             let length = Object.keys(model).length + Object.keys(where).length;
             let params: any = new Array(length);
@@ -184,17 +219,18 @@ class DbUtils {
 
             this.db.run(sql, params, function (err) {
                 if (err) {
-                    console.error(new Date().toISOString(), this.constructor.name, '[ERROR] sql ', sql, err);
+                    console.error(new Date().toISOString(), _this.constructor.name, '[ERROR] sql ', sql, model, err);
                     reject(err);
                     return;
                 }
-                if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[update] ", sql, " --> ", this);
+                if (DbUtils.debug) console.log(new Date().toISOString(), _this.constructor.name, "[update] ", sql, model, " --> ", this);
                 resolve({ lastID: this.lastID, changes: this.changes });
             });
         });
     }
 
     public delete(table: string, where: any): Promise<any> {
+        let _this = this;
         return new Promise<any>((resolve, reject) => {
             let length = Object.keys(where).length;
             let params: any = new Array(length);
@@ -213,11 +249,11 @@ class DbUtils {
 
             this.db.run(sql, params, function (err) {
                 if (err) {
-                    console.error(new Date().toISOString(), this.constructor.name, '[ERROR] sql ', sql, err);
+                    console.error(new Date().toISOString(), _this.constructor.name, '[ERROR] sql ', sql, where, err);
                     reject(err);
                     return;
                 }
-                if (DbUtils.debug) console.log(new Date().toISOString(), this.constructor.name, "[delete] ", sql, " --> ", this);
+                if (DbUtils.debug) console.log(new Date().toISOString(), _this.constructor.name, "[delete] ", sql, where, " --> ", this);
                 resolve({ lastID: this.lastID, changes: this.changes });
             });
         });

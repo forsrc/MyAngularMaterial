@@ -18,24 +18,25 @@ abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
         this.findBy = this.findBy.bind(this);
         this.update = this.update.bind(this);
         this.delete = this.delete.bind(this);
+        this.count = this.count.bind(this);
     }
 
     public abstract getTableName(): string;
 
     public abstract getPk(): string[];
 
-     list(): Promise<MODEL[]> {
+    list(): Promise<MODEL[]> {
         let sql: string = `SELECT * FROM ${this.getTableName()}`;
 
         return DbUtils.getInstance().all(sql, []);
     }
 
-     save(model: MODEL): Promise<MODEL> {
+    save(model: MODEL): Promise<MODEL> {
 
         return DbUtils.getInstance().insert(this.getTableName(), model);
     }
 
-     get(pk: any): Promise<MODEL[]> {
+    get(pk: any): Promise<MODEL[]> {
         for (let key in this.getPk()) {
             if (!pk[this.getPk()[key]]) {
                 return Promise.reject({ error: `PK(${this.getPk()}) ${this.getPk()[key]} is empty` });
@@ -48,7 +49,7 @@ abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
         return DbUtils.getInstance().get(this.getTableName(), key);
     }
 
-     update(model: MODEL): Promise<MODEL> {
+    update(model: MODEL): Promise<MODEL> {
         let pk: any = {};
         for (let key in this.getPk()) {
             if (!model[this.getPk()[key]]) {
@@ -59,13 +60,17 @@ abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
         return DbUtils.getInstance().update(this.getTableName(), model, pk);
     }
 
-     delete(pk: any): Promise<void> {
+    delete(pk: any): Promise<void> {
         for (let key in this.getPk()) {
             if (!pk[this.getPk()[key]]) {
                 return Promise.reject({ error: `PK(${this.getPk()}) ${this.getPk()[key]} is empty` });
             }
         }
         return DbUtils.getInstance().delete(this.getTableName(), pk);
+    }
+
+    count(where: any): Promise<number> {
+        return DbUtils.getInstance().count(this.getTableName(), where);
     }
 }
 

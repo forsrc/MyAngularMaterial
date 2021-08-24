@@ -14,6 +14,8 @@ interface BaseService<MODEL> {
     update(model: MODEL): Promise<MODEL>;
 
     delete(pk: any): Promise<void>;
+
+    count(where: any): Promise<number>;
 }
 
 
