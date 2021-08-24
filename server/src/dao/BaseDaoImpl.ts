@@ -9,7 +9,7 @@ import DbUtils from '../utils/DbUtils';
 abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
 
 
-    public db: sqlite.Database = new sqlite3.Database(config.db, () => { });
+    public static db: sqlite.Database = new sqlite3.Database(config.db, () => { });
 
     constructor() {
         this.list = this.list.bind(this);
@@ -23,27 +23,27 @@ abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
 
     public abstract getPk(): string[];
 
-    async list(): Promise<MODEL[]> {
+     list(): Promise<MODEL[]> {
         let sql: string = `SELECT * FROM ${this.getTableName()}`;
 
-        return await DbUtils.getInstance().all(sql, []);
+        return DbUtils.getInstance().all(sql, []);
     }
 
-    async save(model: MODEL): Promise<MODEL> {
+     save(model: MODEL): Promise<MODEL> {
 
-        return await DbUtils.getInstance().insert(this.getTableName(), model);
+        return DbUtils.getInstance().insert(this.getTableName(), model);
     }
 
-    async get(pk: any): Promise<MODEL[]> {
+     get(pk: any): Promise<MODEL[]> {
         for (let key in this.getPk()) {
             if (!pk[this.getPk()[key]]) {
                 return Promise.reject({ error: `${key} is empty` });
             }
         }
-        return await DbUtils.getInstance().get(this.getTableName(), pk);
+        return DbUtils.getInstance().get(this.getTableName(), pk);
     }
 
-    async update(model: MODEL): Promise<MODEL> {
+     update(model: MODEL): Promise<MODEL> {
         let pk: any = {};
         for (let key in this.getPk()) {
             if (!model[this.getPk()[key]]) {
@@ -51,16 +51,16 @@ abstract class BaseDaoImpl<MODEL> implements BaseDao<MODEL> {
             }
             pk[key] = model[key];
         }
-        return await DbUtils.getInstance().update(this.getTableName(), model, pk);
+        return DbUtils.getInstance().update(this.getTableName(), model, pk);
     }
 
-    async delete(pk: any): Promise<void> {
+     delete(pk: any): Promise<void> {
         for (let key in this.getPk()) {
             if (!pk[this.getPk()[key]]) {
                 return Promise.reject({ error: `${key} is empty` });
             }
         }
-        return await DbUtils.getInstance().delete(this.getTableName(), pk);
+        return DbUtils.getInstance().delete(this.getTableName(), pk);
     }
 }
 

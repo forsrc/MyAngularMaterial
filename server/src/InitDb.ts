@@ -1,10 +1,7 @@
 import config from './Config';
 import DbUtils from './utils/DbUtils';
 import Init from './Init';
-import UserController from './controller/UserController';
-import User from './model/User';
-import UserRole from './model/UserRole';
-import UserRole from './model/UserRole';
+
 
 
 class InitDb {
@@ -118,34 +115,35 @@ INSERT INTO user (username, password, enabled) VALUES (?, ?, ?)
         await Init.userRoleService.save(userRole);
     }
 
-    async run(sqls: string[]) {
-        return new Promise<void>(async (resolve, reject) => {
+    run(sqls: string[]) {
 
+        return new Promise<void>((resolve, reject) => {
             let promises = [];
-
-            sqls.forEach(async sql => {
-
-                promises.push(new Promise<void>(async (_resolve, _reject) => {
-                    await DbUtils.getInstance().run(
-                        sql,
-                        []
-                    ).then((one) => {
-                        _resolve(one);
-                    }).catch((err) => {
-                        console.error(err);
-                        _reject(err);
+            let promise = Promise.resolve();
+            sqls.forEach(sql => {
+    
+                promise = promise.then(() => {
+                    return new Promise<any>((_resolve, _reject) => {
+                        DbUtils.getInstance().run(sql, []).then((res) => {
+                            _resolve(res);
+                        }).catch((err) => {
+                            _reject(err)
+                        });
                     });
-                }));
-
-                Promise.all(promises).then(() => {
-                    resolve();
-                }).catch(err => {
-                    reject(err);
                 });
+                promises.push(promise);
+            });
+            Promise.all(promises).then(() => {
+                resolve();
+            }).catch(err => {
+                reject(err);
             });
         });
 
+
+ 
     }
+
 }
 
 
