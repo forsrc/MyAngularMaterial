@@ -21,7 +21,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  list() {
+  list() : Observable<any>{
     return this.http.get(`${this.endpoint}`);
   }
 

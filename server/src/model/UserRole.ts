@@ -1,6 +1,6 @@
 type UserRole = {
-    username: String;
-    role: String;
+    username: string;
+    role: string;
     create: Date;
     update: Date;
 }

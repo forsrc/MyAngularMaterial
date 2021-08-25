@@ -26,16 +26,16 @@
     </ng-container>
 
     <!-- Column -->
-    <ng-container matColumnDef="role">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Role </b></th>
-      <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+    <ng-container matColumnDef="password">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Password </b></th>
+      <td mat-cell *matCellDef="let element"> {{element.password}} </td>
     </ng-container>
 
     <!-- Column -->
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef mat-sort-header><b> Action </b></th>
       <td mat-cell *matCellDef="let element">
-        <button mat-icon-button color="accent" matTooltip="edit a user">
+        <button mat-icon-button color="primary" matTooltip="edit a user">
           <mat-icon (click)="edit(element)" aria-label="edit">edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" matTooltip="delete a user">

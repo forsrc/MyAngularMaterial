@@ -1,6 +1,6 @@
 type User = {
-    username: String;
-    password: String;
+    username: string;
+    password: string;
     enabled: number;
     version: number;
     create: Date;

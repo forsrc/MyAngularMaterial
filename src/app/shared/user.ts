@@ -1,6 +1,8 @@
 
 export class User {
 	index!: number;
-	username!: String;
-	role!: String;
+	username!: string;
+	password!: string;
+	email!: string;
+	enable!: boolean;
 }

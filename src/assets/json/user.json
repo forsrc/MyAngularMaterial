@@ -1,21 +1,22 @@
-[
-	{
-		"index": 1,
-		"username" : "forsrc@gmail.com",
-		"role" : ["ROLE_USER", "ROLE_ADMIN"],
-		"action" : true
-	},
-	{
-		"index": 2,
-		"username" : "user",
-		"role" : ["ROLE_USER", "ROLE_DEV"],
-		"action" : true
-	}
-	,
-	{
-		"index": 3,
-		"username" : "test",
-		"role" : ["ROLE_USER", "ROLE_TEST"],
-		"action" : true
-	}
-]
+{
+	"status": "ok",
+	"data": [
+	  {
+		"username": "forsrc",
+		"password": "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e",
+		"enabled": 0,
+		"version": 0,
+		"create": "2021-08-25 01:10:00",
+		"update": "2021-08-25 01:10:00"
+	  },
+	  {
+		"username": "user",
+		"password": "$2a$10$Wzme7qZtAsJZspQpNx3ee.qTu/IqRHiTb0jORWUOXCxptAkG3kf8e",
+		"enabled": 0,
+		"version": 0,
+		"create": "2021-08-25 01:10:00",
+		"update": "2021-08-25 01:10:00"
+	  }
+	],
+	"total": 2
+  }

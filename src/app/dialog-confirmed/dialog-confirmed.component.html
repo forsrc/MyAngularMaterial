@@ -2,7 +2,7 @@
 <div mat-dialog-content>
 {{message}}
 </div>
-<div mat-dialog-actions align="end">
-  <button color="primary" mat-button [mat-dialog-close]="data" >Confirm</button>
-  <button color="primary" mat-button cdkFocusInitial mat-dialog-close>Cancel</button>
+<div mat-dialog-actions align="end" class="md-button-right">
+  <button mat-raised-button color="primary" [mat-dialog-close]="data">Confirm</button>
+  <button mat-button color="primary" cdkFocusInitial mat-dialog-close>Cancel</button>
 </div>

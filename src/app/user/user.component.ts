@@ -23,7 +23,7 @@ import { UserEditDialogComponent } from './edit/user-edit-dialog.component';
 export class UserComponent implements OnInit {
 
   users: any = [];
-  displayedColumns: string[] = ['index', 'username', 'role', 'action'];
+  displayedColumns: string[] = ['index', 'username', 'password', 'action'];
 
   dataSource!: MatTableDataSource<User>;
 
@@ -44,7 +44,11 @@ export class UserComponent implements OnInit {
   ngOnInit() {
 
     this.userService.list().subscribe(data => {
-      this.users = data;
+      this.users = data.data|| [];
+      for (let index = 0; index <  this.users.length; index++) {
+        this.users[index].index = index + 1;
+      }
+      
       this.dataSource = new MatTableDataSource<User>(this.users);
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
@@ -104,7 +108,7 @@ export class UserComponent implements OnInit {
         this.dataSource.data.map((user , i) => {
           //console.log(user , i);
           if (result.username === user.username) {
-            user.role = result.role;
+            user.password = result.password;
           }
         });
         //this.userServicr.delete(user.username).subscribe();

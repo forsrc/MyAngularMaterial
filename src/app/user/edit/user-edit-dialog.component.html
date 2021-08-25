@@ -1,5 +1,5 @@
 <div class="container">
-  <h3 mat-dialog-title>{{ title }} Username: {{ user.username }}</h3>
+  <h3 mat-dialog-title>{{ title }} <mat-icon color="primary" aria-label="edit">edit</mat-icon> Username: {{ user.username }}</h3>
 
   
  
@@ -7,10 +7,13 @@
             <input matInput placeholder="Username" value="{{user.username}}">
       </mat-form-field>
       <mat-form-field class="w-100">
-            <input matInput placeholder="Role" value="{{user.role}}" [(ngModel)]="user.role" >
+            <input matInput placeholder="Password" value="{{user.password}}" [(ngModel)]="user.password" >
       </mat-form-field>
-      <button color="primary" mat-button cdkFocusInitial [mat-dialog-close]="user"> Confirm </button>
-      <button color="primary" mat-button cdkFocusInitial mat-dialog-close> Cancel </button>
+
+      <section mat-dialog-actions align="end" class="md-button-right">
+            <button color="primary" mat-raised-button cdkFocusInitial [mat-dialog-close]="user"> Confirm </button>
+            <button color="primary" mat-button cdkFocusInitial mat-dialog-close> Cancel </button>
+      </section>
  
    
 </div>
