@@ -30,6 +30,7 @@ export class UserModule {
 })
 export class DialogConfirmedComponent implements OnInit {
   title!: string;
+  icon!: string;
   key!: string;
   message!: string;
 
@@ -43,6 +44,7 @@ export class DialogConfirmedComponent implements OnInit {
   ngOnInit() {
     this.title = this.data.title;
     this.key = this.data.key || "";
+    this.icon = this.data.icon || "info";
     this.message = this.data.message || "Are you sure?";
 
   }

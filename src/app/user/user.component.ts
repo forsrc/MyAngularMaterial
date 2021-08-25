@@ -72,6 +72,7 @@ export class UserComponent implements OnInit {
     dialogConfig.width = '400px';
     dialogConfig.data = {
       title: "Delete",
+      icon: "delete_forever",
       key: user.username,
       message: 'Are you sure?'
     };
@@ -96,6 +97,7 @@ export class UserComponent implements OnInit {
     dialogConfig.width = '800px';
     dialogConfig.data = {
       title: "Edit",
+      icon: "edit",
       user: user
     };
     const dialogRef = this.dialog.open(UserEditDialogComponent, dialogConfig);
