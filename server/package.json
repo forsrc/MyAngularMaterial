@@ -1,36 +1,28 @@
 {
-  "name": "nodejs-typescript-rest-api",
-  "version": "1.0.1",
-  "description": "",
+  "name": "server",
+  "version": "1.0.0",
+  "description": "```\r npm install\r npm run build\r npm run dev",
   "main": "server.js",
   "scripts": {
     "start": "tsc && node dist/Server.js",
     "build": "tsc",
     "dev": "concurrently --kill-others \"tsc -w\" \"nodemon dist/Server.js\""
   },
-  "keywords": [
-    "typescript",
-    "nodejs",
-    "crud",
-    "rest",
-    "swagger"
-  ],
-  "author": "Sean Bradley",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/express": "^4.16.1",
-    "@types/node": "^13.7.1",
-    "@types/sqlite3": "^3.1.6",
+    "@types/sqlite3": "^3.1.11",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "sqlite3": "^4.2.0",
-    "swagger-ui-express": "^4.0.2",
-    "typescript": "3.3.3333",
-    "typescript-ioc": "^3.2.2",
-    "uuid": "^3.3.2"
+    "express": "^4.21.2",
+    "sqlite3": "^5.1.7",
+    "swagger-ui-express": "^5.0.1",
+    "typescript-ioc": "^3.0.5",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
-    "concurrently": "^2.2.0",
-    "nodemon": "^1.18.10"
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.2",
+    "typescript": "^5.7.3"
   }
 }

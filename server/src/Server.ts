@@ -3,7 +3,7 @@ import path from 'path';
 
 import App from './App';
 import InitDb from './InitDb';
-import Test from './test';
+import Test from './Test';
 
 const port = parseInt(process.env.PORT || '3000');
 
